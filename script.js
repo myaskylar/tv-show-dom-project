@@ -23,8 +23,8 @@ function setup() {
       const title = e.children[1].textContent;
       const epiSum = e.children[3].textContent;
       if (
-        title.toLowerCase().indexOf(searchString) != -1 ||
-        epiSum.toLowerCase().indexOf(searchString) != -1
+        title.toLowerCase().indexOf(searchString) !== -1 ||
+        epiSum.toLowerCase().indexOf(searchString) !== -1
       ) {
         e.style.display = "block";
       } else {
