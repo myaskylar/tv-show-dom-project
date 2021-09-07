@@ -1,7 +1,27 @@
+body{
+  background-color: black;
+  color: white;
+}
+a :hover {
+  color: aqua;
+}
+
+#searchWrapper :last-child{
+  font-size: xx-large;
+}
+
 #root {
   color: black;
   display: flex;
   flex-wrap: wrap;
+  margin: 100px 100px;
+  justify-content: space-around;
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  margin: 100px 200px;
 }
 
 .card {
@@ -11,10 +31,25 @@
   transition: 0.5s ease;
   backface-visibility: visible;
   cursor: pointer;
+  color: white;
+  margin-bottom: inherit;
+  border: 1px solid gold;
 }
 .card:hover {
   opacity: 2;
   transform: scale(1.1);
   box-shadow: 10px 10px #247b7b;
 }
+
+#searchBar {
+    width: 100%;
+    height: 32px;
+    border-radius: 3px;
+    border: 1px solid #eaeaea;
+    padding: 5px 10px;
+    font-size: 12px;
+}
+
+
+
 
