@@ -23,8 +23,8 @@ function setup() {
       const title = e.children[1].textContent;
       const epiSum = e.children[3].textContent;
       if (
-        title.toLowerCase().indexOf(searchString) !== -1 ||
-        epiSum.toLowerCase().indexOf(searchString) !== -1
+        title.toLowerCase().indexOf(searchString) != -1 ||
+        epiSum.toLowerCase().indexOf(searchString) != -1
       ) {
         e.style.display = "block";
       } else {
@@ -39,16 +39,19 @@ function makePageForEpisodes(episodeList) {
   const totalEpisode = document.getElementById("total");
   totalEpisode.textContent = `${episodeList.length}`;
 
+  const selectEpi = document.getElementById("selectEpisode");
+
   episodeList.forEach((episode) => {
     //Create card for each episode details
     const divCard = document.createElement("div");
     divCard.setAttribute("class", "card");
+    divCard.setAttribute("id", `${episode.id}`);
 
     //Create anchors tag to link to original site for particular episode.
     const linkToSite = document.createElement("a");
     linkToSite.href = episode.url;
     linkToSite.style.textDecoration = "none";
-    linkToSite.style.color = "white";
+    linkToSite.style.color = "black";
 
     //image of episode (medium size)
     const showCover = document.createElement("img");
@@ -66,11 +69,22 @@ function makePageForEpisodes(episodeList) {
     const epiSummary = document.createElement("p");
     epiSummary.innerHTML = episode.summary;
 
+    //create episode list.
+    const option = document.createElement("option");
+    option.innerText = `S${showSeason}E${episodeNumber}-${episode.name}`;
+    option.value = `#${episode.id}`;
+    selectEpi.appendChild(option);
+
     //click on card will direct to the specific episode on that site
     linkToSite.appendChild(showEpisode);
     divCard.append(showCover, showTitle, linkToSite, epiSummary);
     rootElem.appendChild(divCard);
   });
 }
+
+// function makeEpisodeList(episodes) {
+//   const selectEpi = document.getElementById("selectEpisode");
+
+// }
 
 window.onload = setup;

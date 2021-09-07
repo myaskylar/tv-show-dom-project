@@ -1,12 +1,13 @@
 body{
-  background-color: black;
-  color: white;
+  /* background-color: black;
+  color: white; */
 }
 a :hover {
   color: aqua;
 }
 
-#searchWrapper :last-child{
+#searchWrapper{
+  
   font-size: xx-large;
 }
 
@@ -31,7 +32,7 @@ a :hover {
   transition: 0.5s ease;
   backface-visibility: visible;
   cursor: pointer;
-  color: white;
+  color: black;
   margin-bottom: inherit;
   border: 1px solid gold;
 }

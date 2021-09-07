@@ -3,15 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Show Project | Mya Skylar (Mya Skylar)</title>
+    <title>TV Show Project | My Name (My GitHub username)</title>
     <link href="style.css" rel="stylesheet" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
   </head>
 
   <body>
-     <header class="head">
+    <header class="head">
       <img src="./favicon.ico" alt="image of text TV" width="100px" />
+      
        <div id="searchWrapper">
+         
                 <input
                     type="text"
                     name="searchBar"
@@ -19,11 +21,11 @@
                     placeholder="Search For Episode"
                 />
                  <p>Displaying <span id="available"></span><span id="total"></span>episodes</p>
+                 <select name="episodes"  onchange="location = this.value;" id="selectEpisode"><option value="">Please choose an episode</option></select>
             </div>
      
     </header>
-    <div id="root">
-    </div>
+    <div id="root"></div>
 
     <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
     <script src="episodes.js"></script>
