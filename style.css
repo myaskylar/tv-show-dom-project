@@ -1,7 +1,8 @@
-/* body {
-  background-color: black;
-  color: white; 
-} */
+body {
+ background-image: url(./pxfuel.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
 
 #root {
   color: black;
@@ -31,7 +32,7 @@
 /*---------------------------------------------------------*/
 
 #content {
-  position: absolute;
+  position: sticky;
   height: 50px;
   width: 300px;
   top: 10%;
