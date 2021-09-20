@@ -1,9 +1,55 @@
 body {
- background-image: url(./pxfuel.jpg);
+  margin: 0;
+  padding: 0;
+  background-image: url(./pxfuel.jpg);
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
 
+
+
+/* Style the header with a grey background and some padding */
+.header {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(0,0,0,0.2);
+    padding: 20px 50px 10px 50px;
+}
+.header img {
+  width: 4%;
+  border: 1px solid black;
+}
+.header a{
+ font-size: 1.5em;
+ color: black;
+}
+.header a:hover{
+  color: white;
+}
+#select-sections {
+  height: 60px;
+  background-color: black;
+  display: flex;
+  justify-content: space-evenly;
+}
+.random-style{
+    width: 300px;
+    height: 40px;
+    border-radius: 30px;
+    margin: auto;
+    background: lightgrey;
+    font-size: 20px;
+}
+
+#footer {
+  background-color: gray;
+  padding: 4rem;
+  font-size: 2rem;
+  text-align: center;
+}
+#footer a {
+  text-decoration: none;
+}
 #root {
   color: black;
   display: flex;
@@ -11,52 +57,23 @@ body {
   margin: 100px 100px;
   justify-content: space-around;
 }
-
-.card {
-  width: 250px;
-  padding: 50px 50px;
-  opacity: 0.8;
-  transition: 0.5s ease;
-  backface-visibility: visible;
-  cursor: pointer;
-  color: black;
-  margin-bottom: inherit;
-  border: 1px solid gold;
-}
-.card:hover {
-  opacity: 2;
-  transform: scale(1.1);
-  box-shadow: 10px 10px #247b7b;
-}
-
 /*---------------------------------------------------------*/
-
+/* this style to create expending search bar inside overlay to search show according to title,genre */
 #content {
   position: sticky;
   height: 50px;
   width: 300px;
   top: 10%;
+  
 }
-
-#content.on {
-  -webkit-animation-name: in-out;
-  animation-name: in-out;
-  -webkit-animation-duration: 0.7s;
-  animation-duration: 0.7s;
-  -webkit-animation-timing-function: linear;
-  animation-timing-function: linear;
-  -webkit-animation-iteration-count: 1;
-  animation-iteration-count: 1;
-}
-
-input {
+.overlay2:target input {
   box-sizing: border-box;
   width: 50px;
   height: 50px;
-  border: 4px solid black;
+  border: 4px solid white;
   border-radius: 50%;
   background: none;
-  color: black;
+  color: white;
   font-size: 16px;
   font-weight: 400;
   font-family: Roboto;
@@ -72,7 +89,7 @@ input {
   transform: translate(-100%, -50%);
 }
 
-.search {
+.overlay2:target .search {
   background: none;
   position: absolute;
   top: 0px;
@@ -92,12 +109,12 @@ input {
   transform: translate(-100%, -50%);
 }
 
-.search:before {
+.overlay2:target .search:before {
   content: "";
   position: absolute;
   width: 20px;
   height: 4px;
-  background-color: black;
+  background-color: white;
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
@@ -107,21 +124,21 @@ input {
   transition: 0.2s ease-in-out;
 }
 
-.close {
+.overlay2:target .close {
   -webkit-transition: 0.4s ease-in-out;
   transition: 0.4s ease-in-out;
   -webkit-transition-delay: 0.4s;
   transition-delay: 0.4s;
 }
 
-.close:before {
+.overlay2:target .close:before {
   content: "";
   position: absolute;
   width: 27px;
   height: 4px;
   margin-top: -1px;
   margin-left: -13px;
-  background-color: black;
+  background-color: white;
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
@@ -129,12 +146,12 @@ input {
   transition: 0.2s ease-in-out;
 }
 
-.close:after {
+.overlay2:target .close:after {
   content: "";
   position: absolute;
   width: 27px;
   height: 4px;
-  background-color: black;
+  background-color: white;
   margin-top: -1px;
   margin-left: -13px;
   cursor: pointer;
@@ -143,15 +160,15 @@ input {
   transform: rotate(-45deg);
 }
 
-.square {
+.overlay2:target .square {
   box-sizing: border-box;
   padding: 0 40px 0 10px;
   width: 300px;
   height: 50px;
-  border: 4px solid black;
+  border: 4px solid white;
   border-radius: 0;
   background: none;
-  color: black;
+  color: white;
   font-family: Roboto;
   font-size: 16px;
   font-weight: 400;
@@ -166,27 +183,9 @@ input {
   -ms-transform: translate(-100%, -50%);
   transform: translate(-100%, -50%);
 }
-
-/* Style the header with a grey background and some padding */
-.header {
-  display: flex;
-  justify-content: space-between;
-  background-color: #f1f1f1;
-  padding: 20px 50px;
-}
-
-#footer {
-  background-color: gray;
-  padding: 4rem;
-  font-size: 2rem;
-  text-align: center;
-}
-
-#footer a {
-  text-decoration: none;
-}
-
+/* ------------------end of style set----------------------------------- */
 /* Add media queries for responsiveness - when the screen is 500px wide or less, stack the links on top of each other */
+/* this media queries for expending search bar */
 @media screen and (max-width: 500px) {
   .square {
     width: 200px;
@@ -199,4 +198,467 @@ input {
     top: 12%;
     left: 85%;
   }
+}
+/* ---------------------------------------------------------- */
+/* Card for random show suggestion style */
+#random-card {
+  width: 80%;
+  height: 1000px;
+  margin-left: 150px;
+  margin-top: 50px;
+}
+
+#randomCard-img {
+  position: absolute;
+}
+
+#randomCard-info {
+  position: absolute;
+  margin-top: 400px;
+  max-width: 60%;
+  margin-left: 10px;
+  background: rgb(0, 0, 0); /* fallback color */
+  background: rgba(0, 0, 0, 0.7);
+  padding: 10px;
+  color: white;
+  font-size: xx-large;
+}
+
+#span {
+  font-size: 1.5em;
+}
+
+#watch-now {
+  font-size: 1em;
+  color: black;
+  border: 2px solid grey;
+  background-color: white;
+  border-radius: 20px/50px;
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+}
+#watch-now:hover {
+  opacity: 0.5;
+}
+
+#watch-now a {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  padding: inherit;
+  color: black;
+}
+
+.play {
+  border-top: 10px solid white;
+  border-bottom: 10px solid white;
+  border-left: 20px solid black;
+  height: 0px;
+  padding-inline: 10px;
+}
+
+/*  pop-up style info section on random card */
+.info-btn-popup {
+  font-size: 1em;
+  padding: 4px;
+  color: #fff;
+  border: 2px solid white;
+  background-color: black;
+  border-radius: 20px/50px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+  margin-left: 50px;
+}
+.info-btn-popup:hover {
+  background: grey;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+.overlay:target {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup {
+  margin: 200px auto;
+  display: block;
+  padding: 20px;
+  background: rgb(80, 80, 80, 0.7);
+  border-radius: 5px;
+  width: 30%;
+  position: relative;
+  transition: all 5s ease-in-out;
+  color: white;
+}
+
+.popup .popup-close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: white;
+}
+.popup .popup-close:hover {
+  color: gray;
+}
+.popup .popup-content {
+  max-height: 30%;
+  overflow: auto;
+  margin-top: 40px;
+  font-size: large;
+}
+
+@media screen and (max-width: 700px) {
+  .box {
+    width: 70%;
+  }
+  .popup {
+    width: 70%;
+  }
+}
+
+#btn-flex {
+  display: flex;
+}
+/* --------------------------------end of style for random card------------------------------------------ */
+/* styling top show category by rating card (carousel-one)||slider one*/
+.container {
+  position: relative;
+  margin-top: 3%;
+}
+#uk-best {
+  text-align: left;
+  font-family: Montserrat;
+}
+.control {
+  list-style: none;
+}
+.control li {
+  position: absolute;
+  z-index: 99;
+  top: 60%;
+  transform: translateY(-50%);
+  color: white;
+  /* background: rgba(0,0,0,0.5); */
+  padding: 12px 20px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.control li:hover {
+  background: #000;
+}
+.control li.prev {
+  left: 20px;
+}
+.control li.next {
+  right: 20px;
+}
+.tns-nav {
+  text-align: center;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.tns-nav button {
+  height: 13px;
+  width: 8px;
+  background-color: #a5a5a5;
+  border: none;
+  margin-left: 7px;
+  border-radius: 50%;
+}
+.tns-nav .tns-nav-active {
+  background-color: black;
+}
+/* -------------------------------------end of style for first slider---------------- */
+/*------flicked slider styling for each category------- */
+.animation{/*all h1 for category*/
+    color: white;
+    text-shadow: 9px 9px 10px black;
+    font-size: 40px;
+    margin-left: 30px;
+    margin-top: 100px;
+}
+.carousel-cell {
+  width: 210px;
+  height: 1000px;
+  margin-right: 10px;
+  border-radius: 5px;  
+}
+
+/* cell number */
+.carousel-cell:before {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+/* ----------overlay style for search show according title,genres */
+.overlay2 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+.overlay2:target {
+  visibility: visible;
+  opacity: 1;
+  position: relative;
+}
+
+.overlay2:target .popup-close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: white;
+}
+
+.overlay2:target #content {
+  position: relative;
+  top: 80px;
+  left: 70%;
+} 
+/* ---------------------end of style overlay2---------------------------------------- */
+/* style for overlay 3 info about total episodes */
+.overlay3 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.4);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+.overlay3:target {
+  visibility: visible;
+  opacity: 1;
+  position: relative;
+}
+
+.overlay3:target .popup-close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: white;
+}
+
+.overlay3:target #content {
+  position: relative;
+  top: 80px;
+  left: 70%;
+}
+
+/* continue style overlay3 for card arrangement */
+.each-episode-detail{
+  display: flex;
+  justify-content: space-between;
+  height: 150px;
+  margin-bottom: 50px;
+  border-bottom: 1px solid black;
+  width: 1000px;
+}
+
+.menu {
+  overflow-y:scroll;
+  width: 600px;
+  margin-left: 50px;
+  /* margin-right: 40px; */
+  padding-right: 10px;
+  color: white;
+  font-size: large;
+  
+}
+
+.menu::-webkit-scrollbar {
+  width: 1em;
+}
+ 
+.menu::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+ 
+.menu::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}
+
+.title-and-time{
+  display: flex;
+  justify-content: space-between;
+}
+
+.header-right{
+  display: flex;
+  justify-content: space-around;
+  height: 80px;
+  background-color:black;
+}
+#root2{
+  margin: 100px 100px;
+  padding-bottom: 10px;
+}
+#available{
+      color: white;
+   
+    margin-left: 100px;
+    font-size: x-large;
+}
+
+/*------------------------------------ show-hover-card ---------------------------- */
+
+.show-hover-card:hover .show-hover-item:hover .show-hover-content,
+.show-hover-card .show-hover-item--default .show-hover-content {
+  height: 2.5em;
+}
+
+.show-hover-content,
+.show-hover-card:hover .show-hover-content {
+  height: 0;
+  overflow: hidden;
+  transition: height 0.25s;
+}
+
+.show-hover-content {
+  display: flex;
+  justify-content: space-around;
+  
+}
+
+.show-hover-content button {
+  border-radius: 100%;
+  color: white;
+  background-color: black;
+  border: 2px solid grey ;
+  cursor:pointer;
+  font-size: 15px;
+   font-weight: lighter;
+}
+
+.show-hover-content button a{
+  text-decoration: none;
+  color:white;
+  cursor:grabbing;
+  
+}
+
+.show-hover-content button a:hover{
+  color:purple;
+ font-weight: 800;
+}
+
+.show-hover-card:hover {
+  opacity: 2;
+  /* transform: scale(0.9); */
+  transform: scale(1.1);
+  /* box-shadow: 2px 2px black; */
+}
+
+.show-hover-card {
+  padding: 0;
+  margin: 10px 10px;
+  /* margin-left: 10px; */
+  margin-bottom: 30px;
+  width: fit-content;
+  opacity: 0.9;
+  transition: 0.5s ease;
+  backface-visibility: visible;
+  cursor: pointer;
+}
+
+.show-hover-card .show-hover-item {
+  background-color: black;
+  border-bottom: 1px solid #666;
+  padding: 0;
+  color: white;
+}
+
+
+/* ------------------style for carousel ------------------------ */
+.show-hover-card2:hover .show-hover-item:hover .show-hover-content,
+.show-hover-card2 .show-hover-item--default .show-hover-content {
+  height: 2.5em;
+}
+
+.show-hover-content,
+.show-hover-card2:hover .show-hover-content {
+  height: 0;
+  overflow: hidden;
+  transition: height 0.25s;
+}
+
+.show-hover-content {
+  display: flex;
+  justify-content: space-around;
+  
+}
+
+.show-hover-content button {
+  border-radius: 100%;
+  color: white;
+  background-color: black;
+  border: 2px solid grey ;
+  cursor:pointer;
+  font-size: 15px;
+   font-weight: lighter;
+}
+
+.show-hover-content button a{
+  text-decoration: none;
+  color:white;
+  cursor:grabbing;
+  
+}
+
+.show-hover-content button a:hover{
+  color:purple;
+ font-weight: 800;
+}
+
+.show-hover-card2:hover {
+  opacity: 2;
+}
+
+.show-hover-card2 {
+  padding: 0;
+  margin: 10px 10px;
+  /* margin-left: 10px; */
+  margin-bottom: 30px;
+  width: fit-content;
+  opacity: 0.9;
+  transition: 0.5s ease;
+  backface-visibility: visible;
+  cursor: pointer;
+}
+
+.show-hover-card2 .show-hover-item {
+  background-color: black;
+  border-bottom: 1px solid #666;
+  padding: 0;
+  color: white;
 }
