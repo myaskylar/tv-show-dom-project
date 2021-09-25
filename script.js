@@ -735,11 +735,15 @@ let slider = tns({
   autoplayButtonOutput: false,
   controlsContainer: "#custom-control",
   responsive: {
-    0: {
+    320: {
+      items: 1,
+      nav: false,
+    },
+    430: {
       items: 4,
       nav: false,
     },
-    768: {
+    770: {
       items: 5,
       nav: true,
     },
