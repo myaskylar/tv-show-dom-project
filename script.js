@@ -133,23 +133,18 @@ searchBar2.addEventListener("keyup", (e) => {
   }
 });
 
-//<--search all shows on search bar (will display only shows matching with title and genres)------>
-searchBar.addEventListener("keyup", (e) => {
-  allShowPopUp.innerHTML = "";
-  const searchString = e.target.value.toLowerCase().trim();
-
-  const filteredEpisodes = newShows.filter((show) => {
-    return show.name.toLowerCase().includes(searchString);
-  });
-  console.log(filteredEpisodes);
-  filteredEpisodes.forEach((show) => {
+//<-----------------------function to create card for each show------------------------------>
+const createCardForEachShow = (categoriesShows) => {
+  //Create empty container https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment
+  const containerFragment = new DocumentFragment();
+  categoriesShows.forEach((show) => {
     const mainDiv = document.createElement("div");
     mainDiv.className = "show-hover-card";
     const secTag = document.createElement("section");
     secTag.className = "show-hover-item show-hover-card";
     const imgTag = document.createElement("img");
     imgTag.src = `${show.image !== null ? show.image.medium : ""}`;
-    imgTag.alt = `Image of cover poster of ${show.name}`;
+    imgTag.alt = show.name;
     const btnDiv = document.createElement("div");
     btnDiv.className = "show-hover-content";
     const playBtn = document.createElement("button");
@@ -172,8 +167,22 @@ searchBar.addEventListener("keyup", (e) => {
     btnDiv.append(playBtn, btnTag, addBtn);
     secTag.append(imgTag, btnDiv);
     mainDiv.appendChild(secTag);
-    allShowPopUp.appendChild(mainDiv);
+    containerFragment.appendChild(mainDiv);
   });
+  return containerFragment;
+};
+
+//<--search all shows on search bar (will display only shows matching with title and genres)------>
+searchBar.addEventListener("keyup", (e) => {
+  allShowPopUp.innerHTML = "";
+  const searchString = e.target.value.toLowerCase().trim();
+
+  const filteredEpisodes = newShows.filter((show) => {
+    return show.name.toLowerCase().includes(searchString);
+  });
+  const allShowsCard = createCardForEachShow(filteredEpisodes);
+  allShowPopUp.appendChild(allShowsCard);
+  
 });
 
 const onclickResetPage = () => {
@@ -221,50 +230,6 @@ const randomFile = (showFile) => {
   createRandomCard(chooseRandomShow);
 };
 
-//<----------------------------------create category first slider------------------->
-
-const categoryContainer = document.getElementById("my-img");
-
-let allImg = newShows.filter((category) => {
-  let network = `${category.rating.average}`;
-  if (network >= 9) {
-    return category;
-  }
-});
-
-let findImg = allImg.forEach((show) => {
-  const mainDiv = document.createElement("div");
-  mainDiv.className = "show-hover-card";
-  const secTag = document.createElement("section");
-  secTag.className = "show-hover-item show-hover-card";
-  const imgTag = document.createElement("img");
-  imgTag.src = `${show.image !== null ? show.image.medium : ""}`;
-  imgTag.alt = show.name;
-  const btnDiv = document.createElement("div");
-  btnDiv.className = "show-hover-content";
-  const playBtn = document.createElement("button");
-  const linkPage = document.createElement("a");
-  linkPage.href = show.url;
-  linkPage.target = "_blank";
-  linkPage.innerText = "Play";
-  playBtn.appendChild(linkPage);
-  const addBtn = document.createElement("button");
-  addBtn.innerText = "Add";
-  const btnTag = document.createElement("button");
-  const aTag = document.createElement("a");
-  aTag.href = "#hiddenArea3";
-  aTag.innerText = "info";
-  btnTag.appendChild(aTag);
-  btnTag.addEventListener("click", () => {
-    url = `https://api.tvmaze.com/shows/${show.id}/episodes`;
-    loadEpisode(url);
-  });
-  btnDiv.append(playBtn, btnTag, addBtn);
-  secTag.append(imgTag, btnDiv);
-  mainDiv.appendChild(secTag);
-  categoryContainer.appendChild(mainDiv);
-});
-
 //<---------Code below this is Create Category for all show (carousel slider)-------------------->
 //<------------------function to catagories shows according to the type-------------->
 const findTypeOfShow = (type) => {
@@ -276,9 +241,19 @@ const findGenres = (genres) => {
   return newShows.filter((show) => show.genres.includes(genres));
 };
 
+// <------------------------Top rated series by rating-------------------------------->
+const topRated = newShows.filter((category) => {
+  const network = `${category.rating.average}`;
+  if (network >= 9) {
+    return category;
+  }
+});
+const topRatedContainer = document.getElementById("top-rated");
+const topCard = createCardForEachShow(topRated);
+topRatedContainer.appendChild(topCard);
 //<-----------------------------British films and Tv series------------------------------->
-let findGB = newShows.filter((category) => {
-  let network = `${
+const findGB = newShows.filter((category) => {
+  const network = `${
     category.network !== null ? category.network.country.code : ""
   }`;
   if (network === "GB") {
@@ -287,399 +262,68 @@ let findGB = newShows.filter((category) => {
 });
 
 const gbContainer = document.getElementById("british");
-
-findGB.forEach((show) => {
-  const mainDiv = document.createElement("div");
-  mainDiv.className = "show-hover-card2";
-  const secTag = document.createElement("section");
-  secTag.className = "show-hover-item show-hover-card2";
-  const imgTag = document.createElement("img");
-  imgTag.src = `${show.image !== null ? show.image.medium : ""}`;
-  imgTag.alt = show.name;
-  const btnDiv = document.createElement("div");
-  btnDiv.className = "show-hover-content";
-  const playBtn = document.createElement("button");
-  const linkPage = document.createElement("a");
-  linkPage.href = show.url;
-  linkPage.target = "_blank";
-  linkPage.innerText = "Play";
-  playBtn.appendChild(linkPage);
-  const addBtn = document.createElement("button");
-  addBtn.innerText = "Add";
-  const btnTag = document.createElement("button");
-  const aTag = document.createElement("a");
-  aTag.href = "#hiddenArea3";
-  aTag.innerText = "info";
-  btnTag.appendChild(aTag);
-  btnTag.addEventListener("click", () => {
-    url = `https://api.tvmaze.com/shows/${show.id}/episodes`;
-    loadEpisode(url);
-  });
-  btnDiv.append(playBtn, btnTag, addBtn);
-  secTag.append(imgTag, btnDiv);
-  mainDiv.appendChild(secTag);
-  gbContainer.appendChild(mainDiv);
-});
+const gbCard = createCardForEachShow(findGB);
+gbContainer.appendChild(gbCard);
 
 //<-----------------------------------------animated series------------------------------->
-let findAnime = findTypeOfShow("Animation");
+const findAnime = findTypeOfShow("Animation");
 const animeContainer = document.getElementById("animation-series");
-findAnime.forEach((show) => {
-  const mainDiv = document.createElement("div");
-  mainDiv.className = "show-hover-card2";
-  const secTag = document.createElement("section");
-  secTag.className = "show-hover-item show-hover-card2";
-  const imgTag = document.createElement("img");
-  imgTag.src = `${show.image !== null ? show.image.medium : ""}`;
-  imgTag.alt = show.name;
-  const btnDiv = document.createElement("div");
-  btnDiv.className = "show-hover-content";
-  const playBtn = document.createElement("button");
-  const linkPage = document.createElement("a");
-  linkPage.href = show.url;
-  linkPage.target = "_blank";
-  linkPage.innerText = "Play";
-  playBtn.appendChild(linkPage);
-  const addBtn = document.createElement("button");
-  addBtn.innerText = "Add";
-  const btnTag = document.createElement("button");
-  const aTag = document.createElement("a");
-  aTag.href = "#hiddenArea3";
-  aTag.innerText = "info";
-  btnTag.appendChild(aTag);
-  btnTag.addEventListener("click", () => {
-    url = `https://api.tvmaze.com/shows/${show.id}/episodes`;
-    loadEpisode(url);
-  });
-  btnDiv.append(playBtn, btnTag, addBtn);
-  secTag.append(imgTag, btnDiv);
-  mainDiv.appendChild(secTag);
-  animeContainer.appendChild(mainDiv);
-});
+const animeCard = createCardForEachShow(findAnime);
+animeContainer.appendChild(animeCard);
 
 //<---------------------------------------Documentary------------------------>
 let findDocumentary = findTypeOfShow("Documentary");
 const documentaryContainer = document.getElementById("documentary-series");
-findDocumentary.forEach((show) => {
-  const mainDiv = document.createElement("div");
-  mainDiv.className = "show-hover-card2";
-  const secTag = document.createElement("section");
-  secTag.className = "show-hover-item show-hover-card2";
-  const imgTag = document.createElement("img");
-  imgTag.src = `${show.image !== null ? show.image.medium : ""}`;
-  imgTag.alt = show.name;
-  const btnDiv = document.createElement("div");
-  btnDiv.className = "show-hover-content";
-  const playBtn = document.createElement("button");
-  const linkPage = document.createElement("a");
-  linkPage.href = show.url;
-  linkPage.target = "_blank";
-  linkPage.innerText = "Play";
-  playBtn.appendChild(linkPage);
-  const addBtn = document.createElement("button");
-  addBtn.innerText = "Add";
-  const btnTag = document.createElement("button");
-  const aTag = document.createElement("a");
-  aTag.href = "#hiddenArea3";
-  aTag.innerText = "info";
-  btnTag.appendChild(aTag);
-  btnTag.addEventListener("click", () => {
-    url = `https://api.tvmaze.com/shows/${show.id}/episodes`;
-    loadEpisode(url);
-  });
-  btnDiv.append(playBtn, btnTag, addBtn);
-  secTag.append(imgTag, btnDiv);
-  mainDiv.appendChild(secTag);
-  documentaryContainer.appendChild(mainDiv);
-});
+const documentaryCard = createCardForEachShow(findDocumentary);
+documentaryContainer.appendChild(documentaryCard);
 
 //<-----------------------------------------dramas---------------------------->
 let findDramas = findGenres("Drama");
 const dramaContainer = document.getElementById("drama");
-findDramas.forEach((show) => {
-  const mainDiv = document.createElement("div");
-  mainDiv.className = "show-hover-card2";
-  const secTag = document.createElement("section");
-  secTag.className = "show-hover-item show-hover-card2";
-  const imgTag = document.createElement("img");
-  imgTag.src = `${show.image !== null ? show.image.medium : ""}`;
-  imgTag.alt = show.name;
-  const btnDiv = document.createElement("div");
-  btnDiv.className = "show-hover-content";
-  const playBtn = document.createElement("button");
-  const linkPage = document.createElement("a");
-  linkPage.href = show.url;
-  linkPage.target = "_blank";
-  linkPage.innerText = "Play";
-  playBtn.appendChild(linkPage);
-  const addBtn = document.createElement("button");
-  addBtn.innerText = "Add";
-  const btnTag = document.createElement("button");
-  const aTag = document.createElement("a");
-  aTag.href = "#hiddenArea3";
-  aTag.innerText = "info";
-  btnTag.appendChild(aTag);
-  btnTag.addEventListener("click", () => {
-    url = `https://api.tvmaze.com/shows/${show.id}/episodes`;
-    loadEpisode(url);
-  });
-  btnDiv.append(playBtn, btnTag, addBtn);
-  secTag.append(imgTag, btnDiv);
-  mainDiv.appendChild(secTag);
-  dramaContainer.appendChild(mainDiv);
-});
+const dramaCard = createCardForEachShow(findDramas);
+dramaContainer.appendChild(dramaCard);
 
 //<------------------------------------------action----------------------------->
 let findAction = findGenres("Action");
 const actionContainer = document.getElementById("action");
-findAction.forEach((show) => {
-  const mainDiv = document.createElement("div");
-  mainDiv.className = "show-hover-card2";
-  const secTag = document.createElement("section");
-  secTag.className = "show-hover-item show-hover-card2";
-  const imgTag = document.createElement("img");
-  imgTag.src = `${show.image !== null ? show.image.medium : ""}`;
-  imgTag.alt = show.name;
-  const btnDiv = document.createElement("div");
-  btnDiv.className = "show-hover-content";
-  const playBtn = document.createElement("button");
-  const linkPage = document.createElement("a");
-  linkPage.href = show.url;
-  linkPage.target = "_blank";
-  linkPage.innerText = "Play";
-  playBtn.appendChild(linkPage);
-  const addBtn = document.createElement("button");
-  addBtn.innerText = "Add";
-  const btnTag = document.createElement("button");
-  const aTag = document.createElement("a");
-  aTag.href = "#hiddenArea3";
-  aTag.innerText = "info";
-  btnTag.appendChild(aTag);
-  btnTag.addEventListener("click", () => {
-    url = `https://api.tvmaze.com/shows/${show.id}/episodes`;
-    loadEpisode(url);
-  });
-  btnDiv.append(playBtn, btnTag, addBtn);
-  secTag.append(imgTag, btnDiv);
-  mainDiv.appendChild(secTag);
-  actionContainer.appendChild(mainDiv);
-});
+const actionCard = createCardForEachShow(findAction);
+actionContainer.appendChild(actionCard);
 
 //<----------------------------------------comedy--------------------------->
 let findComedy = findGenres("Comedy");
 const comedyContainer = document.getElementById("comedy");
-findComedy.forEach((show) => {
-  const mainDiv = document.createElement("div");
-  mainDiv.className = "show-hover-card2";
-  const secTag = document.createElement("section");
-  secTag.className = "show-hover-item show-hover-card2";
-  const imgTag = document.createElement("img");
-  imgTag.src = `${show.image !== null ? show.image.medium : ""}`;
-  imgTag.alt = show.name;
-  const btnDiv = document.createElement("div");
-  btnDiv.className = "show-hover-content";
-  const playBtn = document.createElement("button");
-  const linkPage = document.createElement("a");
-  linkPage.href = show.url;
-  linkPage.target = "_blank";
-  linkPage.innerText = "Play";
-  playBtn.appendChild(linkPage);
-  const addBtn = document.createElement("button");
-  addBtn.innerText = "Add";
-  const btnTag = document.createElement("button");
-  const aTag = document.createElement("a");
-  aTag.href = "#hiddenArea3";
-  aTag.innerText = "info";
-  btnTag.appendChild(aTag);
-  btnTag.addEventListener("click", () => {
-    url = `https://api.tvmaze.com/shows/${show.id}/episodes`;
-    loadEpisode(url);
-  });
-  btnDiv.append(playBtn, btnTag, addBtn);
-  secTag.append(imgTag, btnDiv);
-  mainDiv.appendChild(secTag);
-  comedyContainer.appendChild(mainDiv);
-});
+const comedyCard = createCardForEachShow(findComedy);
+comedyContainer.appendChild(comedyCard);
 
 //<-------------------------------------sci-fi------------------------------->
 let findSciFi = findGenres("Science-Fiction");
 const sciFiContainer = document.getElementById("sci-fi");
-findSciFi.forEach((show) => {
-  const mainDiv = document.createElement("div");
-  mainDiv.className = "show-hover-card2";
-  const secTag = document.createElement("section");
-  secTag.className = "show-hover-item show-hover-card2";
-  const imgTag = document.createElement("img");
-  imgTag.src = `${show.image !== null ? show.image.medium : ""}`;
-  imgTag.alt = show.name;
-  const btnDiv = document.createElement("div");
-  btnDiv.className = "show-hover-content";
-  const playBtn = document.createElement("button");
-  const linkPage = document.createElement("a");
-  linkPage.href = show.url;
-  linkPage.target = "_blank";
-  linkPage.innerText = "Play";
-  playBtn.appendChild(linkPage);
-  const addBtn = document.createElement("button");
-  addBtn.innerText = "Add";
-  const btnTag = document.createElement("button");
-  const aTag = document.createElement("a");
-  aTag.href = "#hiddenArea3";
-  aTag.innerText = "info";
-  btnTag.appendChild(aTag);
-  btnTag.addEventListener("click", () => {
-    url = `https://api.tvmaze.com/shows/${show.id}/episodes`;
-    loadEpisode(url);
-  });
-  btnDiv.append(playBtn, btnTag, addBtn);
-  secTag.append(imgTag, btnDiv);
-  mainDiv.appendChild(secTag);
-  sciFiContainer.appendChild(mainDiv);
-});
+const sciCard = createCardForEachShow(findSciFi);
+sciFiContainer.appendChild(sciCard);
 
 //<-------------------------------------romance--------------------------->
 let findRomance = findGenres("Romance");
 const romanceContainer = document.getElementById("romance");
-findRomance.forEach((show) => {
-  const mainDiv = document.createElement("div");
-  mainDiv.className = "show-hover-card2";
-  const secTag = document.createElement("section");
-  secTag.className = "show-hover-item show-hover-card2";
-  const imgTag = document.createElement("img");
-  imgTag.src = `${show.image !== null ? show.image.medium : ""}`;
-  imgTag.alt = show.name;
-  const btnDiv = document.createElement("div");
-  btnDiv.className = "show-hover-content";
-  const playBtn = document.createElement("button");
-  const linkPage = document.createElement("a");
-  linkPage.href = show.url;
-  linkPage.target = "_blank";
-  linkPage.innerText = "Play";
-  playBtn.appendChild(linkPage);
-  const addBtn = document.createElement("button");
-  addBtn.innerText = "Add";
-  const btnTag = document.createElement("button");
-  const aTag = document.createElement("a");
-  aTag.href = "#hiddenArea3";
-  aTag.innerText = "info";
-  btnTag.appendChild(aTag);
-  btnTag.addEventListener("click", () => {
-    url = `https://api.tvmaze.com/shows/${show.id}/episodes`;
-    loadEpisode(url);
-  });
-  btnDiv.append(playBtn, btnTag, addBtn);
-  secTag.append(imgTag, btnDiv);
-  mainDiv.appendChild(secTag);
-  romanceContainer.appendChild(mainDiv);
-});
+const romCard = createCardForEachShow(findRomance);
+romanceContainer.appendChild(romCard);
 
 //<-------------------------------------Crime--------------------------->
 let findCrime = findGenres("Crime");
 const crimeContainer = document.getElementById("crime");
-findCrime.forEach((show) => {
-  const mainDiv = document.createElement("div");
-  mainDiv.className = "show-hover-card2";
-  const secTag = document.createElement("section");
-  secTag.className = "show-hover-item show-hover-card2";
-  const imgTag = document.createElement("img");
-  imgTag.src = `${show.image !== null ? show.image.medium : ""}`;
-  imgTag.alt = show.name;
-  const btnDiv = document.createElement("div");
-  btnDiv.className = "show-hover-content";
-  const playBtn = document.createElement("button");
-  const linkPage = document.createElement("a");
-  linkPage.href = show.url;
-  linkPage.target = "_blank";
-  linkPage.innerText = "Play";
-  playBtn.appendChild(linkPage);
-  const addBtn = document.createElement("button");
-  addBtn.innerText = "Add";
-  const btnTag = document.createElement("button");
-  const aTag = document.createElement("a");
-  aTag.href = "#hiddenArea3";
-  aTag.innerText = "info";
-  btnTag.appendChild(aTag);
-  btnTag.addEventListener("click", () => {
-    url = `https://api.tvmaze.com/shows/${show.id}/episodes`;
-    loadEpisode(url);
-  });
-  btnDiv.append(playBtn, btnTag, addBtn);
-  secTag.append(imgTag, btnDiv);
-  mainDiv.appendChild(secTag);
-  crimeContainer.appendChild(mainDiv);
-});
+const crimeCard = createCardForEachShow(findCrime);
+crimeContainer.appendChild(crimeCard);
 
 //<-------------------------------------thriller--------------------------->
 let findThriller = findGenres("Thriller");
 const thrillerContainer = document.getElementById("thriller");
-findThriller.forEach((show) => {
-  const mainDiv = document.createElement("div");
-  mainDiv.className = "show-hover-card2";
-  const secTag = document.createElement("section");
-  secTag.className = "show-hover-item show-hover-card2";
-  const imgTag = document.createElement("img");
-  imgTag.src = `${show.image !== null ? show.image.medium : ""}`;
-  imgTag.alt = show.name;
-  const btnDiv = document.createElement("div");
-  btnDiv.className = "show-hover-content";
-  const playBtn = document.createElement("button");
-  const linkPage = document.createElement("a");
-  linkPage.href = show.url;
-  linkPage.target = "_blank";
-  linkPage.innerText = "Play";
-  playBtn.appendChild(linkPage);
-  const addBtn = document.createElement("button");
-  addBtn.innerText = "Add";
-  const btnTag = document.createElement("button");
-  const aTag = document.createElement("a");
-  aTag.href = "#hiddenArea3";
-  aTag.innerText = "info";
-  btnTag.appendChild(aTag);
-  btnTag.addEventListener("click", () => {
-    url = `https://api.tvmaze.com/shows/${show.id}/episodes`;
-    loadEpisode(url);
-  });
-  btnDiv.append(playBtn, btnTag, addBtn);
-  secTag.append(imgTag, btnDiv);
-  mainDiv.appendChild(secTag);
-  thrillerContainer.appendChild(mainDiv);
-});
+const thrillCard = createCardForEachShow(findThriller);
+thrillerContainer.appendChild(thrillCard);
 
 //------------------------------reality show ------------------------>
 let findReality = findTypeOfShow("Reality");
 const realityContainer = document.getElementById("reality");
-findReality.forEach((show) => {
-  const mainDiv = document.createElement("div");
-  mainDiv.className = "show-hover-card2";
-  const secTag = document.createElement("section");
-  secTag.className = "show-hover-item show-hover-card2";
-  const imgTag = document.createElement("img");
-  imgTag.src = `${show.image !== null ? show.image.medium : ""}`;
-  imgTag.alt = show.name;
-  const btnDiv = document.createElement("div");
-  btnDiv.className = "show-hover-content";
-  const playBtn = document.createElement("button");
-  const linkPage = document.createElement("a");
-  linkPage.href = show.url;
-  linkPage.target = "_blank";
-  linkPage.innerText = "Play";
-  playBtn.appendChild(linkPage);
-  const addBtn = document.createElement("button");
-  addBtn.innerText = "Add";
-  const btnTag = document.createElement("button");
-  const aTag = document.createElement("a");
-  aTag.href = "#hiddenArea3";
-  aTag.innerText = "info";
-  btnTag.appendChild(aTag);
-  btnTag.addEventListener("click", () => {
-    url = `https://api.tvmaze.com/shows/${show.id}/episodes`;
-    loadEpisode(url);
-  });
-  btnDiv.append(playBtn, btnTag, addBtn);
-  secTag.append(imgTag, btnDiv);
-  mainDiv.appendChild(secTag);
-  realityContainer.appendChild(mainDiv);
-});
+const realityCard = createCardForEachShow(findReality);
+realityContainer.appendChild(realityCard);
 
 //------------------------------international show ------------------------>
 
@@ -689,69 +333,9 @@ let findInternational = newShows.filter((show) => {
   }
 });
 const internationalContainer = document.getElementById("international");
-findInternational.forEach((show) => {
-  const mainDiv = document.createElement("div");
-  mainDiv.className = "show-hover-card2";
-  const secTag = document.createElement("section");
-  secTag.className = "show-hover-item show-hover-card2";
-  const imgTag = document.createElement("img");
-  imgTag.src = `${show.image !== null ? show.image.medium : ""}`;
-  imgTag.alt = show.name;
-  const btnDiv = document.createElement("div");
-  btnDiv.className = "show-hover-content";
-  const playBtn = document.createElement("button");
-  const linkPage = document.createElement("a");
-  linkPage.href = show.url;
-  linkPage.target = "_blank";
-  linkPage.innerText = "Play";
-  playBtn.appendChild(linkPage);
-  const addBtn = document.createElement("button");
-  addBtn.innerText = "Add";
-  const btnTag = document.createElement("button");
-  const aTag = document.createElement("a");
-  aTag.href = "#hiddenArea3";
-  aTag.innerText = "info";
-  btnTag.appendChild(aTag);
-  btnTag.addEventListener("click", () => {
-    url = `https://api.tvmaze.com/shows/${show.id}/episodes`;
-    loadEpisode(url);
-  });
-  btnDiv.append(playBtn, btnTag, addBtn);
-  secTag.append(imgTag, btnDiv);
-  mainDiv.appendChild(secTag);
-  internationalContainer.appendChild(mainDiv);
-});
-
-let slider = tns({
-  container: ".my-slider",
-  items: 7,
-  gutter: 20,
-  slideBy: "page",
-  autoplay: false,
-  controlsPosition: "bottom",
-  navPosition: "bottom",
-  mouseDrag: true,
-  autoplay: true,
-  autoplayButtonOutput: false,
-  controlsContainer: "#custom-control",
-  responsive: {
-    320: {
-      items: 1,
-      nav: false,
-    },
-    430: {
-      items: 4,
-      nav: false,
-    },
-    770: {
-      items: 5,
-      nav: true,
-    },
-    1440: {
-      items: 7,
-    },
-  },
-});
+const intCard = createCardForEachShow(findInternational);
+internationalContainer.appendChild(intCard);
+//<----------------------------------------end of code for slider-------------------->
 
 window.onload = setup;
 

@@ -332,55 +332,7 @@ body {
   display: flex;
 }
 /* --------------------------------end of style for random card------------------------------------------ */
-/* styling top show category by rating card (carousel-one)||slider one*/
-.container {
-  position: relative;
-  margin-top: 3%;
-}
-#uk-best {
-  text-align: left;
-  font-family: Montserrat;
-}
-.control {
-  list-style: none;
-}
-.control li {
-  position: absolute;
-  z-index: 99;
-  top: 60%;
-  transform: translateY(-50%);
-  color: white;
-  /* background: rgba(0,0,0,0.5); */
-  padding: 12px 20px;
-  border-radius: 50%;
-  cursor: pointer;
-}
-.control li:hover {
-  background: #000;
-}
-.control li.prev {
-  left: 20px;
-}
-.control li.next {
-  right: 20px;
-}
-.tns-nav {
-  text-align: center;
-  margin-top: 15px;
-  margin-bottom: 15px;
-}
-.tns-nav button {
-  height: 13px;
-  width: 8px;
-  background-color: #a5a5a5;
-  border: none;
-  margin-left: 7px;
-  border-radius: 50%;
-}
-.tns-nav .tns-nav-active {
-  background-color: black;
-}
-/* -------------------------------------end of style for first slider---------------- */
+
 /*------flicked slider styling for each category------- */
 .animation {
   /*all h1 for category*/
@@ -568,15 +520,15 @@ body {
 
 .show-hover-card:hover {
   opacity: 2;
-  /* transform: scale(0.9); */
-  transform: scale(1.1);
-  /* box-shadow: 2px 2px black; */
+  
+  transform: translate(10px, 10px);
+  
 }
 
 .show-hover-card {
   padding: 0;
   margin: 10px 10px;
-  /* margin-left: 10px; */
+ 
   margin-bottom: 30px;
   width: fit-content;
   opacity: 0.9;
@@ -592,67 +544,7 @@ body {
   color: white;
 }
 
-/* ------------------style for carousel ------------------------ */
-.show-hover-card2:hover .show-hover-item:hover .show-hover-content,
-.show-hover-card2 .show-hover-item--default .show-hover-content {
-  height: 2.5em;
-}
 
-.show-hover-content,
-.show-hover-card2:hover .show-hover-content {
-  height: 0;
-  overflow: hidden;
-  transition: height 0.25s;
-}
-
-.show-hover-content {
-  display: flex;
-  justify-content: space-around;
-}
-
-.show-hover-content button {
-  border-radius: 100%;
-  color: white;
-  background-color: black;
-  border: 2px solid grey;
-  cursor: pointer;
-  font-size: 15px;
-  font-weight: lighter;
-}
-
-.show-hover-content button a {
-  text-decoration: none;
-  color: white;
-  cursor: grabbing;
-}
-
-.show-hover-content button a:hover {
-  color: purple;
-  font-weight: 800;
-}
-
-.show-hover-card2:hover {
-  opacity: 2;
-}
-
-.show-hover-card2 {
-  padding: 0;
-  margin: 10px 10px;
-  /* margin-left: 10px; */
-  margin-bottom: 30px;
-  width: fit-content;
-  opacity: 0.9;
-  transition: 0.5s ease;
-  backface-visibility: visible;
-  cursor: pointer;
-}
-
-.show-hover-card2 .show-hover-item {
-  background-color: black;
-  border-bottom: 1px solid #666;
-  padding: 0;
-  color: white;
-}
 /*------------------------------------------------ media queries */
 @media screen and (max-width: 770px) {
   .header-right{
