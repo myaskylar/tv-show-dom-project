@@ -11,13 +11,16 @@ const searchBtn = document.getElementById("search-btn");
 let showEpisodes = [];
 const newShows = getAllShows();
 let mainUrl = "https://api.tvmaze.com/shows/82/episodes";
+let castUrl = "http://api.tvmaze.com/shows/82?embed=cast";
 const randomCard = document.getElementById("random-card");
 const popUpInfo = document.getElementById("popup-info");
+const showDetailWithCast = document.getElementById("main-show-cast");
 
 function setup() {
   loadEpisode(mainUrl);
   displayShowList(newShows);
   randomFile(newShows);
+  loadCastForEpisode(castUrl);
 }
 
 //<----------------------------------------fetch data------------------------------------->
@@ -31,6 +34,41 @@ const loadEpisode = async (url) => {
   } catch (err) {
     console.error(err);
   }
+};
+
+//<--------------------------------fetch cast data------------------------------>
+
+const loadCastForEpisode = async (url) => {
+  try {
+    const respond = await fetch(url);
+    showCastDetail = await respond.json();
+    whoCast(showCastDetail);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const whoCast = (obj) => {
+  let castNames = obj._embedded.cast;
+
+  let allCastName = castNames.map((character) => {
+    return character.person.name;
+  });
+
+  let message = `<h1>${obj.name}</h1>
+  <div class="cast-title">
+    <img src="${obj.image !== null ? obj.image.medium : ""}"></img>
+    <div class="menu">
+    <p>${obj.summary !== null ? obj.summary : ""}</p>
+    </div>
+    </div>
+    <h2>Language: ${obj.language}</h2>
+    <h3>Genres: ${obj.genres.join(" |")}</h3>
+    <p>Rating: ${obj.rating.average}</p>
+    <p><b>Cast</b>: ${allCastName.join(" | ")}</p>
+    `;
+
+  showDetailWithCast.innerHTML = message;
 };
 
 //<--------------------------------this function will Create card for each episode----------------------->
@@ -103,6 +141,8 @@ function selectFilter() {
 //<----------------------this function will display the show that user choose-------------->
 function selectShowFunction() {
   const showOptionValue = document.getElementById("selectShow");
+  let selectedCast = `http://api.tvmaze.com/shows/${showOptionValue.value}?embed=cast`;
+  loadCastForEpisode(selectedCast);
   let selectedValue = `https://api.tvmaze.com/shows/${showOptionValue.value}/episodes`;
   loadEpisode(selectedValue);
 }
@@ -161,6 +201,8 @@ const createCardForEachShow = (categoriesShows) => {
     aTag.innerText = "info";
     btnTag.appendChild(aTag);
     btnTag.addEventListener("click", () => {
+      cast = `http://api.tvmaze.com/shows/${show.id}?embed=cast`;
+      loadCastForEpisode(cast);
       url = `https://api.tvmaze.com/shows/${show.id}/episodes`;
       loadEpisode(url);
     });
@@ -182,7 +224,6 @@ searchBar.addEventListener("keyup", (e) => {
   });
   const allShowsCard = createCardForEachShow(filteredEpisodes);
   allShowPopUp.appendChild(allShowsCard);
-  
 });
 
 const onclickResetPage = () => {

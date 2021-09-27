@@ -435,9 +435,8 @@ body {
 
 .menu {
   overflow-y: scroll;
-  width: 600px;
-  margin-left: 50px;
-  /* margin-right: 40px; */
+  width: 1000px;
+  margin-left: 50px; 
   padding-right: 10px;
   color: white;
   font-size: large;
@@ -703,4 +702,20 @@ body {
   .overlay2:target .square{
     width: 250px;
   }
+}
+
+#main-show-cast p {
+  font-size: larger;
+}
+
+#main-show-cast {
+  color: white; 
+  background-color: rgba(0,0,0, 0.5); 
+  margin: 0px 50px;
+  padding: 40px;
+}
+
+.cast-title {
+  display: flex;
+  justify-content: space-between;
 }
