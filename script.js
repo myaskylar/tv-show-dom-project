@@ -31,6 +31,7 @@ const loadEpisode = async (url) => {
     showEpisodes = await res.json();
     displayEpisodes(showEpisodes);
     displayEpisodeList(showEpisodes);
+    totalSeason(showEpisodes);
   } catch (err) {
     console.error(err);
   }
@@ -70,6 +71,34 @@ const whoCast = (obj) => {
 
   showDetailWithCast.innerHTML = message;
 };
+//<------------------this function will calculate total seasons ----------------------------------->
+const seasons = document.getElementById("totalSeasons");
+
+const totalSeason = (episodes) => {
+  let allSeasons = episodes.map((episode) => {
+    return episode.season;
+  });
+
+  let removesDuplicate = allSeasons.reduce(function (a, b) {
+    if (a.indexOf(b) < 0) a.push(b);
+    return a;
+  }, []);
+
+  const seasonList = removesDuplicate
+    .map((seasonNumber) => {
+      return `<option value="${seasonNumber}"> SEASON ${seasonNumber}</option>`;
+    })
+    .join();
+  seasons.innerHTML = seasonList;
+};
+//<-------------------------function for display episode according season--------------------------->
+function sortSeason() {
+  let selectedSeason = seasons.value;
+  const filterSelectedSeason = showEpisodes.filter((episode) => {
+    return episode.season.toString().includes(selectedSeason);
+  });
+  displayEpisodes(filterSelectedSeason);
+}
 
 //<--------------------------------this function will Create card for each episode----------------------->
 const displayEpisodes = (episodes) => {

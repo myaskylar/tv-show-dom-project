@@ -436,7 +436,7 @@ body {
 .menu {
   overflow-y: scroll;
   width: 1000px;
-  margin-left: 50px; 
+  margin-left: 50px;
   padding-right: 10px;
   color: white;
   font-size: large;
@@ -519,15 +519,14 @@ body {
 
 .show-hover-card:hover {
   opacity: 2;
-  
+
   transform: translate(10px, 10px);
-  
 }
 
 .show-hover-card {
   padding: 0;
   margin: 10px 10px;
- 
+
   margin-bottom: 30px;
   width: fit-content;
   opacity: 0.9;
@@ -543,10 +542,9 @@ body {
   color: white;
 }
 
-
 /*------------------------------------------------ media queries */
 @media screen and (max-width: 770px) {
-  .header-right{
+  .header-right {
     flex-direction: column-reverse;
     height: fit-content;
   }
@@ -554,7 +552,7 @@ body {
   .random-style {
     margin-bottom: 10px;
   }
-  #available{
+  #available {
     margin-left: 50px;
   }
 
@@ -562,21 +560,18 @@ body {
     margin: 10px 10px;
   }
 
-  #random-card{
+  #random-card {
     margin-left: 80px;
   }
-  
 
-#randomCard-info {
-  font-size: larger;
-  margin-top: 700px;
-}
-  
+  #randomCard-info {
+    font-size: larger;
+    margin-top: 700px;
+  }
 }
 @media screen and (max-width: 430px) {
-
   .header img {
-    width: 10%
+    width: 10%;
   }
 
   #random-card {
@@ -585,7 +580,7 @@ body {
     width: auto;
   }
 
-   #randomCard-img {
+  #randomCard-img {
     width: 400px;
     height: 500px;
   }
@@ -604,7 +599,7 @@ body {
     margin: 20px auto;
   }
 
-   .overlay3:target {
+  .overlay3:target {
     width: auto;
   }
   .header-right {
@@ -650,7 +645,6 @@ body {
   }
 }
 
-
 @media screen and (max-width: 400px) {
   .header {
     justify-content: space-around;
@@ -666,7 +660,7 @@ body {
     width: 350px;
     height: 500px;
   }
-  
+
   .overlay3:target {
     width: 360px;
   }
@@ -683,10 +677,9 @@ body {
   .overlay3:target .popup-close {
     top: auto;
   }
-
 }
 
-@media screen and (max-width: 320px){
+@media screen and (max-width: 320px) {
   #randomCard-img {
     width: 300px;
     height: 500px;
@@ -699,7 +692,7 @@ body {
   #my-img > .tns-item {
     width: auto;
   }
-  .overlay2:target .square{
+  .overlay2:target .square {
     width: 250px;
   }
 }
@@ -709,8 +702,8 @@ body {
 }
 
 #main-show-cast {
-  color: white; 
-  background-color: rgba(0,0,0, 0.5); 
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
   margin: 0px 50px;
   padding: 40px;
 }
@@ -718,4 +711,13 @@ body {
 .cast-title {
   display: flex;
   justify-content: space-between;
+}
+
+#totalSeasons {
+  display: block;
+  margin: 50px 0px 10px 80px;
+  font-size: xx-large;
+  font-weight: 900;
+  color: white;
+  background: black;
 }
