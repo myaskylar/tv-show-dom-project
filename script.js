@@ -9,6 +9,7 @@ const selectShow = document.getElementById("selectShow");
 const input = document.getElementById("search-input");
 const searchBtn = document.getElementById("search-btn");
 let showEpisodes = [];
+let showCastDetail = [];
 const newShows = getAllShows();
 let mainUrl = "https://api.tvmaze.com/shows/82/episodes";
 let castUrl = "http://api.tvmaze.com/shows/82?embed=cast";
@@ -17,18 +18,20 @@ const popUpInfo = document.getElementById("popup-info");
 const showDetailWithCast = document.getElementById("main-show-cast");
 
 function setup() {
-  loadEpisode(mainUrl);
+  loadEpisode(mainUrl, castUrl);
   displayShowList(newShows);
   randomFile(newShows);
-  loadCastForEpisode(castUrl);
+  // loadCastForEpisode(castUrl);
 }
 
 //<----------------------------------------fetch data------------------------------------->
-const loadEpisode = async (url) => {
+const loadEpisode = async (url1, url2) => {
   try {
-    const res = await fetch(url);
+    const [episodeRes, showRes] = await Promise.all([fetch(url1), fetch(url2)]);
 
-    showEpisodes = await res.json();
+    showEpisodes = await episodeRes.json();
+    showCastDetail = await showRes.json();
+    whoCast(showCastDetail);
     displayEpisodes(showEpisodes);
     displayEpisodeList(showEpisodes);
     totalSeason(showEpisodes);
@@ -39,16 +42,16 @@ const loadEpisode = async (url) => {
 
 //<--------------------------------fetch cast data------------------------------>
 
-const loadCastForEpisode = async (url) => {
-  try {
-    const respond = await fetch(url);
-    showCastDetail = await respond.json();
-    whoCast(showCastDetail);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
+// const loadCastForEpisode = async (url) => {
+//   try {
+//     const respond = await fetch(url);
+//     showCastDetail = await respond.json();
+//     whoCast(showCastDetail);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+//<-----------------------------create card for show cast and more detail------------------>
 const whoCast = (obj) => {
   let castNames = obj._embedded.cast;
 
@@ -171,9 +174,9 @@ function selectFilter() {
 function selectShowFunction() {
   const showOptionValue = document.getElementById("selectShow");
   let selectedCast = `http://api.tvmaze.com/shows/${showOptionValue.value}?embed=cast`;
-  loadCastForEpisode(selectedCast);
+  // loadCastForEpisode(selectedCast);
   let selectedValue = `https://api.tvmaze.com/shows/${showOptionValue.value}/episodes`;
-  loadEpisode(selectedValue);
+  loadEpisode(selectedValue,selectedCast);
 }
 
 // <-----------This function will display the episode according to alphabet on search bar------->
@@ -231,9 +234,9 @@ const createCardForEachShow = (categoriesShows) => {
     btnTag.appendChild(aTag);
     btnTag.addEventListener("click", () => {
       cast = `http://api.tvmaze.com/shows/${show.id}?embed=cast`;
-      loadCastForEpisode(cast);
+      // loadCastForEpisode(cast);
       url = `https://api.tvmaze.com/shows/${show.id}/episodes`;
-      loadEpisode(url);
+      loadEpisode(url,cast);
     });
     btnDiv.append(playBtn, btnTag, addBtn);
     secTag.append(imgTag, btnDiv);
