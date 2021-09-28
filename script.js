@@ -11,7 +11,7 @@ const searchBtn = document.getElementById("search-btn");
 let showEpisodes = [];
 const newShows = getAllShows();
 let mainUrl = "https://api.tvmaze.com/shows/82/episodes";
-// let castUrl = "http://api.tvmaze.com/shows/82?embed=cast";
+let castUrl = "http://api.tvmaze.com/shows/82?embed=cast";
 const randomCard = document.getElementById("random-card");
 const popUpInfo = document.getElementById("popup-info");
 const showDetailWithCast = document.getElementById("main-show-cast");
@@ -20,7 +20,7 @@ function setup() {
   loadEpisode(mainUrl);
   displayShowList(newShows);
   randomFile(newShows);
-  // whoCast(newShows);
+  whoCast(newShows);
 }
 
 //<----------------------------------------fetch data------------------------------------->
@@ -39,15 +39,15 @@ const loadEpisode = async (url) => {
 
 //<--------------------------------fetch cast data------------------------------>
 
-// const loadCastForEpisode = async (url) => {
-//   try {
-//     const respond = await fetch(url);
-//     showCastDetail = await respond.json();
-//     whoCast(showCastDetail);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+const loadCastForEpisode = async (url) => {
+  try {
+    const respond = await fetch(url);
+    showCastDetail = await respond.json();
+    whoCast(showCastDetail);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 const whoCast = (show) => {
   
@@ -166,8 +166,8 @@ function selectFilter() {
 //<----------------------this function will display the show that user choose-------------->
 function selectShowFunction() {
   const showOptionValue = document.getElementById("selectShow");
-  // let selectedCast = `http://api.tvmaze.com/shows/${showOptionValue.value}?embed=cast`;
-  // loadCastForEpisode(selectedCast);
+  let selectedCast = `http://api.tvmaze.com/shows/${showOptionValue.value}?embed=cast`;
+  loadCastForEpisode(selectedCast);
  let a = newShows.forEach((show)=>{
     if(showOptionValue.value === show.id.toString()){
      return whoCast(show);
@@ -231,8 +231,8 @@ const createCardForEachShow = (categoriesShows) => {
     aTag.innerText = "info";
     btnTag.appendChild(aTag);
     btnTag.addEventListener("click", () => {
-      // cast = `http://api.tvmaze.com/shows/${show.id}?embed=cast`;
-      // loadCastForEpisode(cast);
+      cast = `http://api.tvmaze.com/shows/${show.id}?embed=cast`;
+      loadCastForEpisode(cast);
       whoCast(show);
       url = `https://api.tvmaze.com/shows/${show.id}/episodes`;
       loadEpisode(url);
