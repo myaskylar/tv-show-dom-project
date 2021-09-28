@@ -9,6 +9,7 @@ const selectShow = document.getElementById("selectShow");
 const input = document.getElementById("search-input");
 const searchBtn = document.getElementById("search-btn");
 let showEpisodes = [];
+let showCastDetail = [];
 const newShows = getAllShows();
 let mainUrl = "https://api.tvmaze.com/shows/82/episodes";
 let castUrl = "https://api.tvmaze.com/shows/82?embed=cast";
@@ -18,9 +19,10 @@ const showDetailWithCast = document.getElementById("main-show-cast");
 
 function setup() {
   loadEpisode(mainUrl);
+  loadCastForEpisode(castUrl);
   displayShowList(newShows);
   randomFile(newShows);
-  whoCast(newShows);
+ // whoCast(newShows);
 }
 
 //<----------------------------------------fetch data------------------------------------->
@@ -178,11 +180,11 @@ function selectShowFunction() {
   const showOptionValue = document.getElementById("selectShow");
   let selectedCast = `https://api.tvmaze.com/shows/${showOptionValue.value}?embed=cast`;
   loadCastForEpisode(selectedCast);
- let a = newShows.forEach((show)=>{
-    if(showOptionValue.value === show.id.toString()){
-     return whoCast(show);
-    }
-  })
+//  let a = newShows.forEach((show)=>{
+//     if(showOptionValue.value === show.id.toString()){
+//      return whoCast(show);
+//     }
+//   })
   let selectedValue = `https://api.tvmaze.com/shows/${showOptionValue.value}/episodes`;
   loadEpisode(selectedValue);
 }
@@ -243,7 +245,7 @@ const createCardForEachShow = (categoriesShows) => {
     btnTag.addEventListener("click", () => {
       cast = `https://api.tvmaze.com/shows/${show.id}?embed=cast`;
       loadCastForEpisode(cast);
-      whoCast(show);
+      // whoCast(show);
       url = `https://api.tvmaze.com/shows/${show.id}/episodes`;
       loadEpisode(url);
     });
