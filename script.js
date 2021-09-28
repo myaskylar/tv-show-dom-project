@@ -52,6 +52,12 @@ const loadCastForEpisode = async (url) => {
 };
 
 const whoCast = (show) => {
+  let castNames = show._embedded.cast;
+
+  let allCastName = castNames.map((character) => {
+    return character.person.name;
+  });
+
   let message = ``;
   if (show) {
     let name = show.name ? show.name : "";
@@ -59,11 +65,12 @@ const whoCast = (show) => {
     let imageMedium = image ? image.medium : "";
     let summary = show.summary ? show.summary : "";
     let language = show.language ? show.language : "";
-    let genres = show.genre ? show.genre : "";
+    let genres = show.genres ? show.genres : "";
     let rating = show.rating ? show.rating : null;
     let ratingAverage = rating ? rating.average : "";
 
     message = `
+    <h1>${name}</h1>
 				<div class="cast-title">
 					<img src="${imageMedium}"></img>
 					<div class="menu">
@@ -71,8 +78,9 @@ const whoCast = (show) => {
 					</div>
 				</div>
 			    <h2>Language: ${language}</h2>
-			    <h3>Genres: ${genres}</h3>
+			    <h3>Genres: ${genres.join(" |")}</h3>
 			    <p>Rating: ${ratingAverage}</p>
+          <p><b>Cast</b>: ${allCastName.join(" | ")}</p>
 		`;
   }
 
