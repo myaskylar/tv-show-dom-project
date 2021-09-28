@@ -53,7 +53,7 @@ const whoCast = (show) => {
   
   let message = `<h1>${show.name}</h1>
   <div class="cast-title">
-    <img src="${show.image !== null ? show.image.medium : ""}"></img>
+    <img src="${show.image !== null && show.image.medium !== null ? show.image.medium : ""}"></img>
     <div class="menu">
     <p>${show.summary !== null ? show.summary : ""}</p>
     </div>
