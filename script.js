@@ -166,7 +166,7 @@ function selectFilter() {
 //<----------------------this function will display the show that user choose-------------->
 function selectShowFunction() {
   const showOptionValue = document.getElementById("selectShow");
-  let selectedCast = `http://api.tvmaze.com/shows/${showOptionValue.value}?embed=cast`;
+  let selectedCast = `https://api.tvmaze.com/shows/${showOptionValue.value}?embed=cast`;
   loadCastForEpisode(selectedCast);
  let a = newShows.forEach((show)=>{
     if(showOptionValue.value === show.id.toString()){
@@ -231,7 +231,7 @@ const createCardForEachShow = (categoriesShows) => {
     aTag.innerText = "info";
     btnTag.appendChild(aTag);
     btnTag.addEventListener("click", () => {
-      cast = `http://api.tvmaze.com/shows/${show.id}?embed=cast`;
+      cast = `https://api.tvmaze.com/shows/${show.id}?embed=cast`;
       loadCastForEpisode(cast);
       whoCast(show);
       url = `https://api.tvmaze.com/shows/${show.id}/episodes`;
