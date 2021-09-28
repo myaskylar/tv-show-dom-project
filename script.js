@@ -69,7 +69,7 @@ const whoCast = (show) => {
 					</div>
 				</div>
 			    <h2>Language: ${language}</h2>
-			    <h3>Genres: ${genres.join(" |")}</h3>
+			    <h3>Genres: ${genres}</h3>
 			    <p>Rating: ${ratingAverage}</p>
 		`;
   }
