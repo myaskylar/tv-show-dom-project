@@ -50,21 +50,31 @@ const loadCastForEpisode = async (url) => {
 };
 
 const whoCast = (show) => {
-  
-  let message = `<h1>${show.name}</h1>
-  <div class="cast-title">
-    <img src="${show.image !== null && show.image.medium !== null ? show.image.medium : ""}"></img>
-    <div class="menu">
-    <p>${show.summary !== null ? show.summary : ""}</p>
-    </div>
-    </div>
-    <h2>Language: ${show.language}</h2>
-    <h3>Genres: ${show.genres.join(" |")}</h3>
-    <p>Rating: ${show.rating.average}</p>
-    
-    `;
+  let message = ``;
+  if (show) {
+    let name = show.name ? show.name : "";
+    let image = show.image ? show.image : null;
+    let imageMedium = image ? image.medium : "";
+    let summary = show.summary ? show.summary : "";
+    let language = show.language ? show.language : "";
+    let genres = show.genre ? show.genre : "";
+    let rating = show.rating ? show.rating : null;
+    let ratingAverage = rating ? rating.average : "";
 
-  showDetailWithCast.innerHTML = message;
+    message = `
+				<div class="cast-title">
+					<img src="${imageMedium}"></img>
+					<div class="menu">
+						<p>${summary}</p>
+					</div>
+				</div>
+			    <h2>Language: ${language}</h2>
+			    <h3>Genres: ${genres.join(" |")}</h3>
+			    <p>Rating: ${ratingAverage}</p>
+		`;
+  }
+
+  return (showDetailWithCast.innerHTML = message);
 };
 //<------------------this function will calculate total seasons ----------------------------------->
 const seasons = document.getElementById("totalSeasons");
