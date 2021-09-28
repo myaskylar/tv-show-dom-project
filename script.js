@@ -11,7 +11,7 @@ const searchBtn = document.getElementById("search-btn");
 let showEpisodes = [];
 const newShows = getAllShows();
 let mainUrl = "https://api.tvmaze.com/shows/82/episodes";
-let castUrl = "http://api.tvmaze.com/shows/82?embed=cast";
+let castUrl = "https://api.tvmaze.com/shows/82?embed=cast";
 const randomCard = document.getElementById("random-card");
 const popUpInfo = document.getElementById("popup-info");
 const showDetailWithCast = document.getElementById("main-show-cast");
