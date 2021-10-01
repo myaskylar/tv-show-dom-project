@@ -6,15 +6,198 @@
     <title>TV Show Project | My Name (My GitHub username)</title>
     <link href="style.css" rel="stylesheet" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <!-- flicked slide -->
+    <link
+      rel="stylesheet"
+      href="https://npmcdn.com/flickity@2/dist/flickity.css"
+    />
   </head>
 
   <body>
-    <div id="root">
+    <!--Header logo and search icon-->
+    <div class="header">
+      <img src="./favicon.ico" id="logo" alt="image of text TV" width="100px" />
+      <a href="#hiddenArea"
+        ><i class="fa fa-search"> Search for shows here</i></a
+      >
     </div>
 
+    <!--This element button for suggest random shows for viewer -->
+    <div id="select-sections">
+      <button onclick="randomFile(newShows)" class="random-style">
+        Suggest Random Show
+      </button>
+    </div>
+
+    <!-- Overlay pop-up div to show search bar for all show matching with title and genres -->
+    <div id="hiddenArea" class="overlay2">
+      <div>
+        <form id="content">
+          <input
+            type="text"
+            name="input"
+            class="input"
+            id="search-input"
+            placeholder="Titles, Genres"
+          />
+          <button
+            type="reset"
+            class="search"
+            id="search-btn"
+            onclick="onclickResetPage()"
+          ></button>
+        </form>
+      </div>
+      <a class="popup-close" href="#">&times;</a>
+      <div id="root"><!-- content is appear here --></div>
+    </div>
+
+    <!-- overlay pop-up div to show total episode available on selected show -->
+    <div id="hiddenArea3" class="overlay3">
+      <div class="header-right">
+        <input
+          type="text"
+          name="input"
+          id="search-input2"
+          class="random-style"
+          placeholder="Search episodes with keyword"
+        />
+        <select
+          name="episodes"
+          onchange="selectFilter()"
+          id="selectEpisode"
+          class="random-style"
+        ></select>
+        <select
+          name="newShow"
+          id="selectShow"
+          class="random-style"
+          onchange="selectShowFunction()"
+        ></select>
+      </div>
+      <a class="popup-close" href="#">&times;</a>
+      <div id="main-show-cast"></div>
+      <select name="season" id="totalSeasons" onchange="sortSeason()"></select>
+      <p id="available"><!-- content is appear here --></p>
+      <div id="root2"><!-- content is appear here --></div>
+    </div>
+
+    <!-- Random show suggestion for viewer -->
+    <div id="random-card"><!-- content is appear here --></div>
+    <div id="popup1" class="overlay">
+      <div class="popup">
+        <a class="popup-close" href="#">&times;</a>
+        <div class="popup-content" id="popup-info">
+          <!-- content is appear here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- carousel infinite for shows according to the category -->
+    <h1 class="animation">Most Popular Show By Rating</h1>
+    <div
+      class="carousel"
+      id="top-rated"
+      data-flickity='{ "wrapAround": true, "autoPlay": false, "imagesLoaded":true,"pageDots":false }'
+    ></div>
+
+    <h1 class="animation">British Films & TV</h1>
+    <div
+      class="carousel"
+      id="british"
+      data-flickity='{ "wrapAround": true, "autoPlay": false, "imagesLoaded":true, "pageDots":false}'
+    ></div>
+
+    <h1 class="animation">Animated Series</h1>
+    <div
+      class="carousel"
+      id="animation-series"
+      data-flickity='{ "wrapAround": true, "autoPlay": false, "imagesLoaded":true,"pageDots":false }'
+    ></div>
+
+    <h1 class="animation">Documentary</h1>
+    <div
+      class="carousel"
+      id="documentary-series"
+      data-flickity='{ "wrapAround": true, "autoPlay": true, "imagesLoaded":true,"pageDots":false }'
+    ></div>
+
+    <h1 class="animation">Dramas</h1>
+    <div
+      class="carousel"
+      id="drama"
+      data-flickity='{ "wrapAround": true, "autoPlay": true, "imagesLoaded":true,"pageDots":false }'
+    ></div>
+
+    <h1 class="animation">Action</h1>
+    <div
+      class="carousel"
+      id="action"
+      data-flickity='{ "wrapAround": true, "autoPlay": true, "imagesLoaded":true,"pageDots":false }'
+    ></div>
+
+    <h1 class="animation">Comedy</h1>
+    <div
+      class="carousel"
+      id="comedy"
+      data-flickity='{ "wrapAround": true, "autoPlay": true, "imagesLoaded":true,"pageDots":false }'
+    ></div>
+
+    <h1 class="animation">Sci-fi</h1>
+    <div
+      class="carousel"
+      id="sci-fi"
+      data-flickity='{ "wrapAround": true, "autoPlay": true, "imagesLoaded":true,"pageDots":false }'
+    ></div>
+
+    <h1 class="animation">Romance</h1>
+    <div
+      class="carousel"
+      id="romance"
+      data-flickity='{ "wrapAround": true, "autoPlay": true, "imagesLoaded":true,"pageDots":false }'
+    ></div>
+
+    <h1 class="animation">Crime</h1>
+    <div
+      class="carousel"
+      id="crime"
+      data-flickity='{ "wrapAround": true, "autoPlay": true, "imagesLoaded":true,"pageDots":false }'
+    ></div>
+
+    <h1 class="animation">Thriller</h1>
+    <div
+      class="carousel"
+      id="thriller"
+      data-flickity='{ "wrapAround": true, "autoPlay": true, "imagesLoaded":true,"pageDots":false }'
+    ></div>
+
+    <h1 class="animation">Reality & Talk Shows</h1>
+    <div
+      class="carousel"
+      id="reality"
+      data-flickity='{ "wrapAround": true, "autoPlay": true, "imagesLoaded":true,"pageDots":false }'
+    ></div>
+
+    <h1 class="animation">International Film & TV</h1>
+    <div
+      class="carousel"
+      id="international"
+      data-flickity='{ "wrapAround": true, "autoPlay": true, "imagesLoaded":true,"pageDots":false }'
+    ></div>
+
+    <footer id="footer">
+      <a href="https://www.tvmaze.com/api#licensing" target="_blank">
+        © TVmaze.com
+      </a>
+    </footer>
+    <script src="https://npmcdn.com/flickity@2/dist/flickity.pkgd.js"></script>
     <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
     <script src="episodes.js"></script>
-
+    <script src="./shows.js"></script>
     <!-- Loads YOUR javascript code -->
     <script src="script.js"></script>
   </body>

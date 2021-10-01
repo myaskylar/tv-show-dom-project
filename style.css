@@ -1,3 +1,723 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url(./pxfuel.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* Style the header with a grey background and some padding */
+.header {
+  display: flex;
+  justify-content: space-between;
+  background-color: rgb(0, 0, 0, 0.2);
+  padding: 20px 50px 10px 50px;
+}
+.header img {
+  width: 4%;
+  border: 1px solid black;
+}
+.header a {
+  font-size: 1.5em;
+  color: black;
+}
+.header a:hover {
+  color: white;
+}
+#select-sections {
+  height: 60px;
+  background-color: black;
+  display: flex;
+  justify-content: space-evenly;
+}
+.random-style {
+  width: 300px;
+  height: 40px;
+  border-radius: 30px;
+  margin: auto;
+  background: lightgrey;
+  font-size: 20px;
+}
+
+#footer {
+  background-color: gray;
+  padding: 4rem;
+  font-size: 2rem;
+  text-align: center;
+}
+#footer a {
+  text-decoration: none;
+}
 #root {
-  color: red;
+  color: black;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 100px 100px;
+  justify-content: space-around;
+}
+/*---------------------------------------------------------*/
+/* this style to create expending search bar inside overlay to search show according to title,genre */
+#content {
+  position: sticky;
+  height: 50px;
+  width: 300px;
+  top: 10%;
+}
+.overlay2:target input {
+  box-sizing: border-box;
+  width: 50px;
+  height: 50px;
+  border: 4px solid white;
+  border-radius: 50%;
+  background: none;
+  color: white;
+  font-size: 16px;
+  font-weight: 400;
+  font-family: Roboto;
+  outline: 0;
+  -webkit-transition: width 0.4s ease-in-out, border-radius 0.8s ease-in-out,
+    padding 0.2s;
+  transition: width 0.4s ease-in-out, border-radius 0.8s ease-in-out,
+    padding 0.2s;
+  -webkit-transition-delay: 0.4s;
+  transition-delay: 0.4s;
+  -webkit-transform: translate(-100%, -50%);
+  -ms-transform: translate(-100%, -50%);
+  transform: translate(-100%, -50%);
+}
+
+.overlay2:target .search {
+  background: none;
+  position: absolute;
+  top: 0px;
+  left: 0;
+  height: 50px;
+  width: 50px;
+  padding: 0;
+  border-radius: 100%;
+  outline: 0;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  -webkit-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+  -webkit-transform: translate(-100%, -50%);
+  -ms-transform: translate(-100%, -50%);
+  transform: translate(-100%, -50%);
+}
+
+.overlay2:target .search:before {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 4px;
+  background-color: white;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  margin-top: 26px;
+  margin-left: 17px;
+  -webkit-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+}
+
+.overlay2:target .close {
+  -webkit-transition: 0.4s ease-in-out;
+  transition: 0.4s ease-in-out;
+  -webkit-transition-delay: 0.4s;
+  transition-delay: 0.4s;
+}
+
+.overlay2:target .close:before {
+  content: "";
+  position: absolute;
+  width: 27px;
+  height: 4px;
+  margin-top: -1px;
+  margin-left: -13px;
+  background-color: white;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  -webkit-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
+}
+
+.overlay2:target .close:after {
+  content: "";
+  position: absolute;
+  width: 27px;
+  height: 4px;
+  background-color: white;
+  margin-top: -1px;
+  margin-left: -13px;
+  cursor: pointer;
+  -webkit-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
+.overlay2:target .square {
+  box-sizing: border-box;
+  padding: 0 40px 0 10px;
+  width: 300px;
+  height: 50px;
+  border: 4px solid white;
+  border-radius: 0;
+  background: none;
+  color: white;
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 400;
+  outline: 0;
+  -webkit-transition: width 0.4s ease-in-out, border-radius 0.4s ease-in-out,
+    padding 0.2s;
+  transition: width 0.4s ease-in-out, border-radius 0.4s ease-in-out,
+    padding 0.2s;
+  -webkit-transition-delay: 0.4s, 0s, 0.4s;
+  transition-delay: 0.4s, 0s, 0.4s;
+  -webkit-transform: translate(-100%, -50%);
+  -ms-transform: translate(-100%, -50%);
+  transform: translate(-100%, -50%);
+}
+/* ------------------end of style set----------------------------------- */
+/* Add media queries for responsiveness - when the screen is 500px wide or less, stack the links on top of each other */
+/* this media queries for expending search bar */
+@media screen and (max-width: 500px) {
+  .square {
+    width: 200px;
+  }
+
+  #content {
+    /* position: absolute; */
+    height: 50px;
+    width: 300px;
+    top: 12%;
+    left: 85%;
+  }
+}
+/* ---------------------------------------------------------- */
+/* Card for random show suggestion style */
+#random-card {
+  width: 80%;
+  height: 1000px;
+  margin-left: 150px;
+  margin-top: 50px;
+}
+
+#randomCard-img {
+  position: absolute;
+}
+
+#randomCard-info {
+  position: absolute;
+  margin-top: 400px;
+  max-width: 60%;
+  margin-left: 10px;
+  background: rgb(0, 0, 0); /* fallback color */
+  background: rgba(0, 0, 0, 0.7);
+  padding: 10px;
+  color: white;
+  font-size: xx-large;
+}
+
+#span {
+  font-size: 1.5em;
+}
+
+#watch-now {
+  font-size: 1em;
+  color: black;
+  border: 2px solid grey;
+  background-color: white;
+  border-radius: 20px/50px;
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+}
+#watch-now:hover {
+  opacity: 0.5;
+}
+
+#watch-now a {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  padding: inherit;
+  color: black;
+}
+
+.play {
+  border-top: 10px solid white;
+  border-bottom: 10px solid white;
+  border-left: 20px solid black;
+  height: 0px;
+  padding-inline: 10px;
+}
+
+/*  pop-up style info section on random card */
+.info-btn-popup {
+  font-size: 1em;
+  padding: 4px;
+  color: #fff;
+  border: 2px solid white;
+  background-color: black;
+  border-radius: 20px/50px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+  margin-left: 50px;
+}
+.info-btn-popup:hover {
+  background: grey;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+.overlay:target {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup {
+  margin: 200px auto;
+  display: block;
+  padding: 20px;
+  background: rgb(80, 80, 80, 0.7);
+  border-radius: 5px;
+  width: 30%;
+  position: relative;
+  transition: all 5s ease-in-out;
+  color: white;
+}
+
+.popup .popup-close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: white;
+}
+.popup .popup-close:hover {
+  color: gray;
+}
+.popup .popup-content {
+  max-height: 30%;
+  overflow: auto;
+  margin-top: 40px;
+  font-size: large;
+}
+
+@media screen and (max-width: 700px) {
+  .box {
+    width: 70%;
+  }
+  .popup {
+    width: 70%;
+  }
+}
+
+#btn-flex {
+  display: flex;
+}
+/* --------------------------------end of style for random card------------------------------------------ */
+
+/*------flicked slider styling for each category------- */
+.animation {
+  /*all h1 for category*/
+  color: white;
+  text-shadow: 9px 9px 10px black;
+  font-size: 40px;
+  margin-left: 30px;
+  margin-top: 100px;
+}
+.carousel-cell {
+  width: 210px;
+  height: 1000px;
+  margin-right: 10px;
+  border-radius: 5px;
+}
+
+/* cell number */
+.carousel-cell:before {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* ----------overlay style for search show according title,genres */
+.overlay2 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+.overlay2:target {
+  visibility: visible;
+  opacity: 1;
+  position: relative;
+}
+
+.overlay2:target .popup-close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: white;
+}
+
+.overlay2:target #content {
+  position: relative;
+  top: 80px;
+  left: 70%;
+}
+/* ---------------------end of style overlay2---------------------------------------- */
+/* style for overlay 3 info about total episodes */
+.overlay3 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.4);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+.overlay3:target {
+  visibility: visible;
+  opacity: 1;
+  position: relative;
+}
+
+.overlay3:target .popup-close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: white;
+}
+
+.overlay3:target #content {
+  position: relative;
+  top: 80px;
+  left: 70%;
+}
+
+/* continue style overlay3 for card arrangement */
+.each-episode-detail {
+  display: flex;
+  justify-content: space-between;
+  height: 150px;
+  margin-bottom: 50px;
+  border-bottom: 1px solid black;
+  width: auto;
+}
+
+.menu {
+  overflow-y: scroll;
+  width: 1000px;
+  margin-left: 50px;
+  padding-right: 10px;
+  color: white;
+  font-size: large;
+}
+
+.menu::-webkit-scrollbar {
+  width: 1em;
+}
+
+.menu::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.menu::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}
+
+.title-and-time {
+  display: flex;
+  justify-content: space-between;
+}
+
+.header-right {
+  display: flex;
+  justify-content: space-around;
+  height: 80px;
+  background-color: black;
+}
+#root2 {
+  margin: 100px 100px;
+  padding-bottom: 10px;
+}
+#available {
+  color: white;
+
+  margin-left: 100px;
+  font-size: x-large;
+}
+
+/*------------------------------------ show-hover-card ---------------------------- */
+
+.show-hover-card:hover .show-hover-item:hover .show-hover-content,
+.show-hover-card .show-hover-item--default .show-hover-content {
+  height: 2.5em;
+}
+
+.show-hover-content,
+.show-hover-card:hover .show-hover-content {
+  height: 0;
+  overflow: hidden;
+  transition: height 0.25s;
+}
+
+.show-hover-content {
+  display: flex;
+  justify-content: space-around;
+}
+
+.show-hover-content button {
+  border-radius: 100%;
+  color: white;
+  background-color: black;
+  border: 2px solid grey;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: lighter;
+}
+
+.show-hover-content button a {
+  text-decoration: none;
+  color: white;
+  cursor: grabbing;
+}
+
+.show-hover-content button a:hover {
+  color: purple;
+  font-weight: 800;
+}
+
+.show-hover-card:hover {
+  opacity: 2;
+
+  transform: translate(10px, 10px);
+}
+
+.show-hover-card {
+  padding: 0;
+  margin: 10px 10px;
+
+  margin-bottom: 30px;
+  width: fit-content;
+  opacity: 0.9;
+  transition: 0.5s ease;
+  backface-visibility: visible;
+  cursor: pointer;
+}
+
+.show-hover-card .show-hover-item {
+  background-color: black;
+  border-bottom: 1px solid #666;
+  padding: 0;
+  color: white;
+}
+
+/*------------------------------------------------ media queries */
+@media screen and (max-width: 770px) {
+  .header-right {
+    flex-direction: column-reverse;
+    height: fit-content;
+  }
+
+  .random-style {
+    margin-bottom: 10px;
+  }
+  #available {
+    margin-left: 50px;
+  }
+
+  #root2 {
+    margin: 10px 10px;
+  }
+
+  #random-card {
+    margin-left: 80px;
+  }
+
+  #randomCard-info {
+    font-size: larger;
+    margin-top: 700px;
+  }
+}
+@media screen and (max-width: 430px) {
+  .header img {
+    width: 10%;
+  }
+
+  #random-card {
+    height: 500px;
+    margin: 0px 10px;
+    width: auto;
+  }
+
+  #randomCard-img {
+    width: 400px;
+    height: 500px;
+  }
+
+  #randomCard-info {
+    margin-top: 250px;
+    max-width: none;
+    font-size: medium;
+  }
+
+  .overlay {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.9);
+  }
+  .popup {
+    margin: 20px auto;
+  }
+
+  .overlay3:target {
+    width: auto;
+  }
+  .header-right {
+    flex-direction: column-reverse;
+    height: fit-content;
+  }
+
+  .random-style {
+    font-size: 15px;
+    margin: 10px auto;
+  }
+
+  .overlay3:target .popup-close {
+    top: auto;
+  }
+
+  #available {
+    margin-left: 10px;
+    padding-bottom: 10px;
+    font-size: medium;
+  }
+
+  #root2 {
+    margin: 0px;
+    padding-bottom: 0px;
+  }
+
+  .each-episode-detail {
+    flex-direction: column;
+    height: auto;
+    width: auto;
+  }
+
+  .menu {
+    overflow-y: hidden;
+    width: auto;
+    color: white;
+    font-size: medium;
+  }
+
+  .title-and-time {
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .header {
+    justify-content: space-around;
+    padding: 0;
+    width: auto;
+  }
+
+  #content {
+    margin-left: 60px;
+  }
+
+  #randomCard-img {
+    width: 350px;
+    height: 500px;
+  }
+
+  .overlay3:target {
+    width: 360px;
+  }
+  .header-right {
+    flex-direction: column-reverse;
+    height: fit-content;
+  }
+
+  .random-style {
+    font-size: 15px;
+    margin: 10px auto;
+  }
+
+  .overlay3:target .popup-close {
+    top: auto;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  #randomCard-img {
+    width: 300px;
+    height: 500px;
+  }
+
+  #randomCard-info {
+    font-size: small;
+  }
+
+  #my-img > .tns-item {
+    width: auto;
+  }
+  .overlay2:target .square {
+    width: 250px;
+  }
+}
+
+#main-show-cast p {
+  font-size: larger;
+}
+
+#main-show-cast {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  margin: 0px 50px;
+  padding: 40px;
+}
+
+.cast-title {
+  display: flex;
+  justify-content: space-between;
+}
+
+#totalSeasons {
+  display: block;
+  margin: 50px 0px 10px 80px;
+  font-size: xx-large;
+  font-weight: 900;
+  color: white;
+  background: black;
 }
